@@ -7,7 +7,7 @@
 |0.1|Document Creation|26-05-2021|
 |0.2|Added What is Sprinkler Run|28-05-2021|
 |0.3|Added the controls|01-06-2021|
-|0.4|Added the class diagram|01-06-2021|
+|0.4|Added the class diagram|04-06-2021|
 
 ## What is Sprinkler Run?
 Sprinkler Run is an infinite runner game made to run in a web browser. You might be asking your self what is an infinite runner? dont you worry its all explained in the text below.
