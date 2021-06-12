@@ -1,15 +1,16 @@
 import Phaser from "../lib/phaser.js";
 import Sprite from "./Sprite.js";
-import HighScore from "../js/HighScore";
+import HighScore from "../js/HighScore.js";
 
 export default class Character extends Sprite{
-    constructor(characterName, characterFilePath, characterXPosition, characterYPosition) {
+    constructor(characterName, characterFilePath, characterXPosition, characterYPosition, characterSpeed) {
         super(characterFilePath, characterXPosition, characterYPosition);
         this.characterName = characterName;
         this.characterLives = 3;
         this.characterHighScores = [];
         this.characterCashoolas = [];
         this.characterMovement = "Normal";
+        this.characterSpeed = "-" + characterSpeed;
     }
 
     getCharacterName() {
@@ -33,10 +34,13 @@ export default class Character extends Sprite{
                 return highScore;
             })
         }
+        return false;
     }
     
     getCharacterHighScoreValue(highScoreName) {
-        this.getCharacterHighScore(highScoreName).getHighScoreValue();
+        if (this.getCharacterHighScore(highScoreName) !== false) {
+            this.getCharacterHighScore(highScoreName).getHighScoreValue();
+        }
     }
 
     getAmountOfChashoolaTheCharacterHas() {
@@ -45,6 +49,10 @@ export default class Character extends Sprite{
 
     getCharacterMovement() {
         return this.characterMovement;
+    }
+
+    getCharacterSpeed() {
+        return this.characterSpeed;
     }
 
     setANewHighScore(highScoreName, highScoreValue) {
@@ -65,6 +73,10 @@ export default class Character extends Sprite{
         if (this.isTheCharacterMovementValid(characterMovement)) {
             this.characterMovement = characterMovement;
         }
+    }
+
+    setCharacterSpeed(characterSpeed) {
+        this.characterSpeed = "-" + characterSpeed;
     }
 
     removeChashoolaFromCharacter(numberOfCashoolasToRemove) {
