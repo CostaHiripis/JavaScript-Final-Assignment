@@ -31,7 +31,7 @@ The controls for Sprinkler Run are quite basic but nevertheless they are as foll
 
 ## Class Diagram
 
-![Sprinkler Run Class Diagram](resources/UML Class Diagram/classDiagram.png "Sprinkler Run Class Diagram")
+![Sprinkler Run Class Diagram](resources/UMLClassDiagram/classDiagram.png "Sprinkler Run Class Diagram")
 
 ## Requested Additions
 
