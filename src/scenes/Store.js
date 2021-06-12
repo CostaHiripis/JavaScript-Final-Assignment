@@ -1,6 +1,6 @@
 import Phaser from "../lib/Phaser.js";
 import Scene from "./Scene.js";
-import Item from "../js/Item.js";
+import Item from "../sprites/Item.js";
 
 export default class Store extends Scene{
     constructor() {
