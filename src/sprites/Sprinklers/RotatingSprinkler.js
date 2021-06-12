@@ -1,4 +1,4 @@
-import Phaser from "../lib/Phaser.js";
+import Phaser from "../../lib/phaser.js";
 import Sprinkler from "./Sprinkler.js";
 
 export default class RotatingSprinkler extends Sprinkler {
