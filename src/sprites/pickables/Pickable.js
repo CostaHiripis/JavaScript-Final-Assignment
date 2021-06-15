@@ -1,8 +1,8 @@
 import Sprite from "../Sprite.js";
 
 export default class Pickable extends Sprite {
-    constructor(pickableFilePath, pickableXPosition, pickableYPosition, pickableValue) {
-        super(pickableFilePath, pickableXPosition, pickableYPosition);
+    constructor(pickableScene, pickableXPosition, pickableYPosition, pickableTexture, pickableValue) {
+        super(pickableScene, pickableXPosition, pickableYPosition, pickableTexture);
         this.pickableValue = pickableValue;
     }
 
