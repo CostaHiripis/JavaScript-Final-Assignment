@@ -10,7 +10,7 @@
 |0.4|Added the class diagram|04-06-2021|
 
 ## What is Sprinkler Run?
-Sprinkler Run is a 2D infinite runner game designed to be run on you favorite web browser. You might be asking your self what is an infinite runner? don't you worry it's all explained in the text below.
+Sprinkler Run is a 2D infinite runner game designed to be run on your favorite web browser. You might be asking your self what is an infinite runner? don't you worry it's all explained in the text below.
 
 ### What is an Infinite Runner?
 
