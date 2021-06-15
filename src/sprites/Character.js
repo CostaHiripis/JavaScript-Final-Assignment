@@ -2,16 +2,25 @@ import Phaser from "../lib/phaser.js";
 import Sprite from "./Sprite.js";
 import HighScore from "../js/HighScore.js";
 
-export default class Character extends Sprite{
-    constructor(characterName, characterFilePath, characterXPosition, characterYPosition, characterSpeed) {
-        super(characterFilePath, characterXPosition, characterYPosition);
+export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
+    constructor(characterName, characterScene, characterXPosition, characterYPosition, characterTexture, characterSpeed) {
+        super(characterScene, characterXPosition, characterYPosition, characterTexture);
+        characterScene.sys.updateList.add(this);
+        characterScene.sys.displayList.add(this);
+        characterScene.physics.world.enableBody(this);
+        this.setImmovable(true);
+        this.setDepth(1);
+        this.characterScene = characterScene;
         this.characterName = characterName;
+        this.characterSpeed = characterSpeed;
+        this.setVelocityY(this.characterSpeed);
         this.characterLives = 3;
         this.characterHighScores = [];
         this.characterCashoolas = [];
         this.characterMovement = "Normal";
-        this.characterSpeed = "-" + characterSpeed;
     }
+
+
 
     getCharacterName() {
         return this.characterName;
@@ -20,6 +29,7 @@ export default class Character extends Sprite{
     setCharacterName(characterName) {
         this.characterName = characterName;
     }
+
 
     addHighScoreToHighScores(highScoreName, highScoreValue) {
         if (!this.isThisCharacterHighScoreAlreadyCreated(highScoreName)) {
@@ -43,7 +53,7 @@ export default class Character extends Sprite{
         }
     }
 
-    getAmountOfChashoolaTheCharacterHas() {
+    getNumberOfChashoolaTheCharacterHas() {
         return this.characterCashoolas.length;
     }
 
@@ -76,7 +86,14 @@ export default class Character extends Sprite{
     }
 
     setCharacterSpeed(characterSpeed) {
-        this.characterSpeed = "-" + characterSpeed;
+        this.characterSpeed = characterSpeed;
+        this.setVelocityY(this.characterSpeed);
+    }
+
+    increaseCharacterSpeed() {
+        let temp = parseInt(this.characterSpeed);
+        temp -= 2;
+        this.setCharacterSpeed(temp.toString());
     }
 
     removeChashoolaFromCharacter(numberOfCashoolasToRemove) {
@@ -95,5 +112,15 @@ export default class Character extends Sprite{
     isTheCharacterMovementValid(characterMovement) {
         return characterMovement === "Reversed" || characterMovement === "Normal";
     }
+
+    deductLife() {
+        this.characterLives = this.characterLives - 1;
+    }
+
+    getLives() {
+        return this.characterLives;
+    }
+
+
 
 }
