@@ -48,10 +48,6 @@ export default class Game extends Scene{
     update(time, delta) {
         this.updateCharacterHorizontalVelocity();
         this.horizontalWrap(this.character);
-
-        while (this.sprinklers.getLength() > 10) {
-            this.generateAsset("sprinkler");
-        }
         super.update(time, delta);
     }
 
