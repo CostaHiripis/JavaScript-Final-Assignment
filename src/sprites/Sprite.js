@@ -1,33 +1,43 @@
 import Phaser from "../lib/Phaser.js";
 
-export default class Sprite {
-    constructor(filePath, xPosition, yPosition) {
-        this.filePath = filePath;
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
+export default class Sprite extends Phaser.GameObjects.Sprite{
+    constructor(spriteScene, spriteXPosition, spriteYPosition, spriteTexture) {
+        super(spriteScene, spriteXPosition, spriteYPosition, spriteTexture);
+        this.spriteScene = spriteScene;
+        this.spriteXPosition = spriteXPosition;
+        this.spriteYPosition = spriteYPosition;
+        this.spriteTexture = spriteTexture;
     }
 
-    getFilePath() {
-        return this.filePath;
-    }
-    getXPosition() {
-        return this.xPosition;
+    getSpriteScene() {
+        return this.spriteScene;
     }
 
-    getYPosition() {
-        return this.yPosition;
+    getSpriteXPosition() {
+        return this.spriteXPosition;
     }
 
-    setFilePath(filePath) {
-        this.filePath = filePath;
+    getSpriteYPosition() {
+        return this.spriteYPosition;
     }
 
-    setXPosition(xPosition) {
-        this.xPosition = xPosition;
+    getSpriteTexture() {
+        return this.spriteTexture;
     }
 
-    setYPosition(yPosition) {
-        this.yPosition = yPosition;
+    setSpriteScene(spriteScene) {
+        this.spriteScene = spriteScene;
     }
 
+    setSpriteXPosition(spriteXPosition) {
+        this.spriteXPosition = spriteXPosition;
+    }
+
+    setSpriteYPosition(spriteYPosition) {
+        this.spriteYPosition = spriteYPosition;
+    }
+
+    setSpriteTexture(spriteTexture) {
+        this.spriteTexture = spriteTexture;
+    }
 }
