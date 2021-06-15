@@ -2,16 +2,8 @@ import Phaser from "../../lib/phaser.js";
 import Sprite from "../Sprite.js";
 
 export default class Sprinkler extends Sprite {
-    constructor(sprinklerFilePath, sprinklerXPosition, sprinklerYPosition) {
-        super(sprinklerXPosition, sprinklerYPosition);
-        this.sprinklerFilePath = sprinklerFilePath;
+    constructor(sprinklerScene, sprinklerXPosition, sprinklerYPosition, sprinklerTexture) {
+        super(sprinklerScene, sprinklerXPosition, sprinklerYPosition, sprinklerTexture);
     }
 
-    getSprinklerFilePath() {
-        return this.sprinklerFilePath
-    }
-
-    setSprinklerFilePath(sprinklerFilePath) {
-        this.sprinklerFilePath = sprinklerFilePath;
-    }
 }
