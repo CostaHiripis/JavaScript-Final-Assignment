@@ -1,4 +1,5 @@
 import Phaser from "../lib/Phaser.js";
+import StationarySprinkler from "../sprites/sprinklers/StationarySprinkler.js";
 
 export default class Scene extends Phaser.Scene{
     constructor(Scene, backgroundFilePath) {
@@ -60,15 +61,5 @@ export default class Scene extends Phaser.Scene{
 
     preLoadImage(key, value) {
         this.load.image(key, value);
-    }
-
-    randomlyGenerateAssetNAmountOfTimes(asset, nAmountOfTimes) {
-        let xAndYPositions = new Map();
-        for (let i = 0; i < nAmountOfTimes; i++) {
-            const x = Phaser.Math.Between(80, 400);
-            const y = 150 * i;
-            xAndYPositions.set(i, [asset, x, y]);
-        }
-        return xAndYPositions;
     }
 }
