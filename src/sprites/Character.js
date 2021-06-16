@@ -18,6 +18,7 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
         this.characterHighScores = [];
         this.characterCashoolas = [];
         this.characterMovement = "Normal";
+
     }
 
 
@@ -79,9 +80,11 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
         this.characterCashoolas.push(cashoola);
     }
 
-    setCharacterMovement(characterMovement) {
-        if (this.isTheCharacterMovementValid(characterMovement)) {
-            this.characterMovement = characterMovement;
+    changeCharacterMovement() {
+        if (this.characterMovement === "Normal") {
+            this.characterMovement = "Reversed";
+        } else {
+            this.characterMovement = "Normal";
         }
     }
 
@@ -109,9 +112,6 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
         return false;
     }
 
-    isTheCharacterMovementValid(characterMovement) {
-        return characterMovement === "Reversed" || characterMovement === "Normal";
-    }
 
     deductLife() {
         this.characterLives = this.characterLives - 1;

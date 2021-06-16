@@ -6,11 +6,15 @@ export default new Phaser.Game({
     type: Phaser.AUTO,
     width: 480,
     height: 640,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
     scene: Game,
     physics: {
         default: "arcade",
-        arcade: {
-            debug: true
-        }
-    }
+        // arcade: {
+        //     debug: true
+        // }
+    },
 })

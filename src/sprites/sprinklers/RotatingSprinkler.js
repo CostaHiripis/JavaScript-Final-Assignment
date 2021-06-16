@@ -2,8 +2,8 @@ import Phaser from "../../lib/phaser.js";
 import Sprinkler from "./Sprinkler.js";
 
 export default class RotatingSprinkler extends Sprinkler {
-    constructor(rotatingSprinklerFilePath, rotatingSprinklerRadius, rotatingSprinklerXPosition, rotatingSprinklerYPosition) {
-        super(rotatingSprinklerFilePath, rotatingSprinklerXPosition, rotatingSprinklerYPosition);
+    constructor(rotatingSprinklerScene, rotatingSprinklerRadius, rotatingSprinklerTexture, rotatingSprinklerXPosition, rotatingSprinklerYPosition) {
+        super(rotatingSprinklerScene, rotatingSprinklerXPosition, rotatingSprinklerYPosition, rotatingSprinklerTexture);
         this.rotatingSprinklerRadius = rotatingSprinklerRadius;
     }
 
