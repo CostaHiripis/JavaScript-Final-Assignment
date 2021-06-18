@@ -1,8 +1,8 @@
-import Phaser from "../lib/Phaser.js";
+import Phaser from "../../lib/phaser.js";
 import Scene from "./Scene.js";
 import CharacterSprite from "../sprites/Character.js";
 import StationarySprinkler from "../sprites/sprinklers/StationarySprinkler.js";
-import HighScore from "../js/HighScore.js";
+import HighScore from "../HighScore.js";
 import RotatingSprinkler from "../sprites/sprinklers/RotatingSprinkler.js";
 import Reverse from "../sprites/pickables/Reverse.js";
 

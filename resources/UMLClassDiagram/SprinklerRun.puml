@@ -1,0 +1,149 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+Game <|-- main
+GameOver <|-- main
+MainMenu <|-- main
+Store <|-- main
+Game <|-- MainMenu
+Character <|-- Game
+HighScore <|-- Game
+Reverse <|-- Game
+RotatingSprinkler <|-- Game
+StationarySprinkler <|-- Game
+Character <|-- Store
+
+class HighScore {
+    highScoreName;
+    highScoreValue;
+    HighScore(highScoreName, highScoreValue)
+    getHighScoreName()
+    getHighScoreValue()
+    setHighScoreName(highScoreName)
+    setHighScoreValue(highScoreValue)
+}
+
+
+class Sprite extends Phaser.GameObjects.Sprite {
+    spriteScene
+    spriteXPosition
+    spriteYPosition
+    spriteTexture
+    Sprite(spriteScene, spriteXPosition, spriteYPosition, spriteTexture)
+    getSpriteScene()
+    getSpriteXPosition()
+    getSpriteYPosition()
+    getSpriteTexture()
+    setSpriteScene(spriteScene)
+    setSpriteXPosition(spriteXPosition)
+    setSpriteYPosition(spriteYPosition)
+    setSpriteTexture(spriteTexture)
+}
+
+class Character extends Phaser.Physics.Arcade.Sprite {
+    characterScene;
+    characterName;
+    characterSpeed;
+    this.characterLives = 3;
+    this.characterHighScores = [];
+    characterMovement = "Normal";
+    reverseTokensCollected = 0;
+    Character(characterName, characterScene, characterXPosition, characterYPosition, characterTexture, characterSpeed)
+    getCharacterName()
+    setCharacterName(characterName)
+    getCharacterTexture()
+    getCharacterHighScore(highScore)
+    getCharacterMovement()
+    getCharacterSpeed()
+    addANewHighScore(highScore)
+    changeCharacterMovement()
+    setCharacterSpeed(characterSpeed)
+    increaseCharacterSpeed()
+    deductLife()
+    getLives()
+    getReverseTokensCollected()
+    collectAReverseToken()
+    setReverseTokensCollected(reverseTokensCollected)
+}
+
+class Sprinkler extends Sprite {
+    Sprinkler(sprinklerScene, sprinklerXPosition, sprinklerYPosition, sprinklerTexture)
+}
+
+class RotatingSprinkler extends Sprinkler {
+    rotatingSprinklerRadius
+    RotatingSprinkler(rotatingSprinklerScene, rotatingSprinklerRadius, rotatingSprinklerTexture, rotatingSprinklerXPosition, rotatingSprinklerYPosition)
+    getRotatingSprinklerRadius()
+    setRotatingSprinklerRadius(rotatingSprinklerRadius)
+}
+
+class StationarySprinkler extends Sprinkler {
+    stationarySprinklerSpan
+    stationarySprinklerSpan
+    StationarySprinkler(stationarySprinklerScene, stationarySprinklerSpan, stationarySprinklerTexture, stationarySprinklerXPosition, stationarySprinklerYPosition)
+    getStationarySprinklerSpan()
+    setStationarySprinklerSpan(stationarySprinklerSpan)
+}
+
+class Pickable extends Sprite {
+    pickableValue
+    Pickable(pickableScene, pickableXPosition, pickableYPosition, pickableTexture, pickableValue)
+    getPickableValue()
+    setPickableValue(pickableValue)
+}
+
+class Reverse extends Pickable {
+    Reverse(reverseScene, reverseXPosition, reverseYPosition, reverseTexture)
+}
+
+class Scene extends Phaser.Scene {
+    assetFilePaths
+    Scene(Scene, backgroundFilePath)
+    preLoad()
+    create()
+    update(time, delta)
+    horizontalWrap(sprite)
+    getBackgroundFilePath()
+    setBackgroundFilePath(backgroundFilePath)
+    addFilePath(key, value)
+    getFilePath(key)
+    getAllFilePaths()
+    preLoadImage(key, value)
+}
+
+class Game extends Scene {
+    spawnStationarySprinklerEvent
+    spawnReverseEvent
+    difficultyEvent
+    timeSurvivedEvent
+    Game()
+    spawnStationarySprinkler()
+    increaseDifficulty()
+    spawnRotatingSprinkler()
+    spawnReverse()
+    generateAsset(asset)
+    placeAsset(asset)
+    createColliderBetweenTwoAssets(assetOne, assetTwo, methodToExecuteWhenTheyCollide)
+    hitSprinkler(character, sprinkler)
+    pickedUpReverse(character, reverse)
+    assetSpawnedOnAnotherAsset(asset1, asset2)
+    timeSurvivedIncrementer()
+}
+
+ class MainMenu extends Scene {
+    character
+    MainMenu()
+}
+
+class GameOver extends Scene {
+    GameOver()
+}
+
+class Store extends Scene {
+    items;
+    Store()
+    addItemToTheStore(characterName, characterXPosition, characterYPosition, characterTexture, animation)
+}
+
+@enduml

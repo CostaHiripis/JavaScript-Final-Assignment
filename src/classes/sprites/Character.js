@@ -1,4 +1,4 @@
-import Phaser from "../lib/phaser.js";
+import Phaser from "../../lib/phaser.js";
 
 export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite {
     constructor(characterName, characterScene, characterXPosition, characterYPosition, characterTexture, characterSpeed) {
@@ -32,10 +32,6 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite {
         return this.characterTexture;
     }
 
-
-    getCharacterHighScores() {
-        return this.characterHighScores;
-    }
 
     getCharacterHighScore(highScore) {
         let highScoreResult;

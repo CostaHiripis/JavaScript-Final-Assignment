@@ -1,8 +1,8 @@
-import Phaser from "../lib/Phaser.js";
-import Game from "../scenes/Game.js";
-import Store from "../scenes/Store.js";
-import MainMenu from "../scenes/MainMenu.js";
-import GameOver from "../scenes/GameOver.js";
+import Phaser from "../lib/phaser.js";
+import Game from "./scenes/Game.js";
+import Store from "./scenes/Store.js";
+import MainMenu from "./scenes/MainMenu.js";
+import GameOver from "./scenes/GameOver.js";
 
 export default new Phaser.Game({
     type: Phaser.AUTO,
@@ -15,8 +15,5 @@ export default new Phaser.Game({
     scene: [MainMenu, Store, Game, GameOver],
     physics: {
         default: "arcade",
-        // arcade: {
-        //     debug: true
-        // }
     },
 })

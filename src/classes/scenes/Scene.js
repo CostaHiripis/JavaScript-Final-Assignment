@@ -1,5 +1,4 @@
-import Phaser from "../lib/Phaser.js";
-import CharacterSprite from "../sprites/Character.js";
+import Phaser from "../../lib/phaser.js";
 
 export default class Scene extends Phaser.Scene {
     constructor(Scene, backgroundFilePath) {
@@ -51,14 +50,6 @@ export default class Scene extends Phaser.Scene {
 
     getAllFilePaths() {
         return this.assetFilePaths;
-    }
-
-    getKeyOfAValueInAssetFilePaths(value) {
-        for (let assetFilePath of this.assetFilePaths) {
-            if (assetFilePath.values() === value) {
-                return assetFilePath.keys();
-            }
-        }
     }
 
     preLoadImage(key, value) {

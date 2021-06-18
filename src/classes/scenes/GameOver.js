@@ -1,5 +1,5 @@
 import Scene from "./Scene.js";
-import Phaser from "../lib/phaser.js";
+import Phaser from "../../lib/phaser.js";
 
 export default class GameOver extends Scene {
     constructor() {
@@ -17,10 +17,10 @@ export default class GameOver extends Scene {
         gameOverText.classType = Phaser.GameObjects.Text;
 
         //Creating text
-        let title = gameOverText.create(125, 150, "Game Over", {fontSize: 50, color: "white"});
-        let reverseTokenHighScore = gameOverText.create(80, 280, "Time survived: " + localStorage.getItem("timeSurvived") + " seconds",
+        gameOverText.create(125, 150, "Game Over", {fontSize: 50, color: "white"});
+        gameOverText.create(80, 280, "Time survived: " + localStorage.getItem("timeSurvived") + " seconds",
             {fontSize: 18, color: "white"});
-        let timeSurvivedHighScore = gameOverText.create(80, 300, "Reverse tokens picked up: " + localStorage.getItem("reverseTokensCollected"),
+        gameOverText.create(80, 300, "Reverse tokens picked up: " + localStorage.getItem("reverseTokensCollected"),
             {fontSize: 18, color: "white"});
         let playAgain = gameOverText.create(180, 420, "Play again", {fontSize: 20, color: "white"});
         let mainMenu = gameOverText.create(188, 460, "Main menu", {fontSize: 20, color: "white"});

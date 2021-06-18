@@ -1,4 +1,4 @@
-import Phaser from "../lib/Phaser.js";
+import Phaser from "../../lib/phaser.js";
 import Scene from "./Scene.js";
 import Game from "./Game.js";
 
@@ -22,7 +22,7 @@ export default class MainMenu extends Scene {
         mainMenuText.classType = Phaser.GameObjects.Text;
 
         //Creating text
-        let title = mainMenuText.create(50, 150, "Sprinkler Run", {fontSize: 50, color: "white"});
+        mainMenuText.create(50, 150, "Sprinkler Run", {fontSize: 50, color: "white"});
         let play = mainMenuText.create(200, 320, "Play", {fontSize: 35, color: "white"});
         let store = mainMenuText.create(45, 400, "Character Selection", {fontSize: 35, color: "white"});
 

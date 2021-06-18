@@ -1,4 +1,4 @@
-import Phaser from "../lib/Phaser.js";
+import Phaser from "../../lib/phaser.js";
 import Scene from "./Scene.js";
 import CharacterSprite from "../sprites/Character.js";
 
@@ -31,7 +31,7 @@ export default class Store extends Scene {
         }
 
 
-        let title = this.add.text(25, 80, "Select a character", {fontSize: 40, color: "white"});
+        this.add.text(25, 80, "Select a character", {fontSize: 40, color: "white"});
 
         this.addItemToTheStore("jon", 100, 250, "character-0", "rotatingCharacter0");
         this.addItemToTheStore("Jen", 200, 250, "character-1", "rotatingCharacter1");
