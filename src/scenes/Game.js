@@ -1,54 +1,49 @@
 import Phaser from "../lib/Phaser.js";
 import Scene from "./Scene.js";
 import CharacterSprite from "../sprites/Character.js";
-import Cashoola from "../sprites/pickables/Cashoola.js";
 import StationarySprinkler from "../sprites/sprinklers/StationarySprinkler.js";
 import HighScore from "../js/HighScore.js";
 import RotatingSprinkler from "../sprites/sprinklers/RotatingSprinkler.js";
 import Reverse from "../sprites/pickables/Reverse.js";
+import MainMenu from "./MainMenu.js";
 
 export default class Game extends Scene {
     spawnStationarySprinklerEvent;
-    spawnCashoolaEvent;
     spawnReverseEvent;
     difficultyEvent;
-
     timeSurvivedEvent;
 
-    constructor(selectedCharacterFilePath) {
+    constructor() {
         super("Game", "./resources/assets/bg.png");
         super.addFilePath("threeLives", "./resources/assets/threeLives.png");
         super.addFilePath("twoLives", "./resources/assets/twoLives.png");
         super.addFilePath("oneLife", "./resources/assets/oneLife.png");
         super.addFilePath("zeroLives", "./resources/assets/zeroLives.png");
-        // super.addFilePath("cashoola1", "./resources/assets/cashoola.png");
-        // this.character = new Character(character.getCharacterName(), character.getFilePath(), character.getXPosition(), character.getYPosition());
-        // this.addFilePath("character", selectedCharacterFilePath);
-        // this.addFilePath("character", "./resources/assets/characters/character1/back.png");
-
     }
 
-
     preload() {
-        this.load.spritesheet("character", "./resources/assets/characters/character-1.png", {
+        this.load.spritesheet("character", "./resources/assets/characters/" + localStorage.getItem("character") + ".png", {
             frameWidth: 48,
             frameHeight: 48
         });
-        this.load.spritesheet("sprinkler", "./resources/assets/sprinkler.png", {frameWidth: 140, frameHeight: 80});
-        this.load.spritesheet("cashoola", "./resources/assets/cashoola.png", {frameWidth: 563, frameHeight: 564});
-        this.load.spritesheet("reverse", "./resources/assets/reverse.png", {frameWidth: 563, frameHeight: 564});
+        this.load.spritesheet("sprinkler", "./resources/assets/sprinkler.png", {
+            frameWidth: 140,
+            frameHeight: 80
+        });
+        this.load.spritesheet("reverse", "./resources/assets/reverse.png", {
+            frameWidth: 563,
+            frameHeight: 564
+        });
 
         this.stationarySprinklers = this.physics.add.staticGroup();
         this.rotatingSprinklers = this.physics.add.staticGroup();
-        this.cashoolas = this.physics.add.staticGroup();
         this.reverses = this.physics.add.staticGroup();
 
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.timeSurvived = new HighScore("TimeSurvived", 0);
         super.preLoad();
     }
 
-    create() {
+    create(data ) {
         //Rotating sprinkler animation
         this.anims.create({
             key: "rotatingSprinkler",
@@ -62,14 +57,6 @@ export default class Game extends Scene {
             key: "stationarySprinkler",
             frames: this.anims.generateFrameNumbers("sprinkler", {start: 0, end: 23}),
             frameRate: 12,
-            repeat: -1
-        });
-
-        //Chashoola animation
-        this.anims.create({
-            key: "cashoola",
-            frames: this.anims.generateFrameNumbers("cashoola", {start: 0, end: 9}),
-            frameRate: 10,
             repeat: -1
         });
 
@@ -113,6 +100,8 @@ export default class Game extends Scene {
         //Setting character animation
         this.character.play("walk");
 
+        this.character.addANewHighScore(new HighScore("Time Survived", 0));
+
         //Character follow camera for character
         this.cameras.main.startFollow(this.character);
         this.cameras.main.setDeadzone(this.scale.width * 1.5);
@@ -137,16 +126,9 @@ export default class Game extends Scene {
             loop: true
         });
 
-        //Cashoola spawner
-        this.spawnCashoolaEvent = this.time.addEvent({
-            delay: Phaser.Math.Between(3000, 5000),
-            callback: this.spawnCashoola,
-            callbackScope: this,
-            loop: true
-        });
 
         //Reverse spawner
-        this.spawnStationarySprinklerEvent = this.time.addEvent({
+        this.spawnReverseEvent = this.time.addEvent({
             delay: Phaser.Math.Between(5000, 7000),
             callback: this.spawnReverse,
             callbackScope: this,
@@ -168,16 +150,6 @@ export default class Game extends Scene {
         //Character collision with rotating sprinklers
         this.createColliderBetweenTwoAssets(this.character, this.rotatingSprinklers, this.hitSprinkler);
         // this.physics.add.collider(this.character, this.rotatingSprinklers, this.hitSprinkler, null, this);
-
-        //Chashoola collision with stationary sprinklers
-        this.createColliderBetweenTwoAssets(this.cashoolas, this.stationarySprinklers, this.assetSpawnedOnAnotherAsset);
-        // this.physics.add.collider(this.cashoolas, this.stationarySprinklers, this.assetSpawnedOnAnotherAsset,
-        //     null, this);
-
-        //Chashoola collision with rotating sprinkler
-        this.createColliderBetweenTwoAssets(this.cashoolas, this.rotatingSprinklers, this.assetSpawnedOnAnotherAsset);
-        // this.physics.add.collider(this.cashoolas, this.rotatingSprinklers, this.assetSpawnedOnAnotherAsset,
-        //     null, this);
 
         //Reverse collision with stationary sprinklers
         this.createColliderBetweenTwoAssets(this.reverses, this.stationarySprinklers, this.assetSpawnedOnAnotherAsset);
@@ -204,10 +176,6 @@ export default class Game extends Scene {
         // this.physics.add.collider(this.rotatingSprinklers, this.rotatingSprinklers,
         //     this.assetSpawnedOnAnotherAsset, null, this);
 
-        //Character collision with cashoola
-        this.createColliderBetweenTwoAssets(this.character, this.cashoolas, this.pickedUpCashoola);
-        // this.physics.add.collider(this.character, this.cashoolas, this.pickedUpCashoola, null, this);
-
         //Character collision with reverse
         this.createColliderBetweenTwoAssets(this.character, this.reverses, this.pickedUpReverse);
         // this.physics.add.collider(this.character, this.reverses, this.pickedUpReverse, null, this);
@@ -217,7 +185,6 @@ export default class Game extends Scene {
         this.healthImage.setPosition(65);
         this.healthImage.scale = 0.6;
         this.healthImage.setDepth(1);
-        //Cashoola Count
         super.create();
     }
 
@@ -262,6 +229,9 @@ export default class Game extends Scene {
         } else {
             this.healthImage.setTexture("zeroLives");
             this.character.destroy();
+            localStorage.setItem("timeSurvived", this.character.getCharacterHighScore("Time Survived").getHighScoreValue());
+            localStorage.setItem("reverseTokensCollected", this.character.getReverseTokensCollected());
+            this.scene.start("GameOver");
         }
 
         //Maintaining top left position
@@ -288,10 +258,6 @@ export default class Game extends Scene {
         this.character.increaseCharacterSpeed();
     }
 
-    spawnCashoola() {
-        this.generateAsset("cashoola");
-    }
-
     spawnRotatingSprinkler() {
         this.generateAsset("rotatingSprinkler");
     }
@@ -309,9 +275,6 @@ export default class Game extends Scene {
             this.placeAsset(new RotatingSprinkler(this, 1, "rotatingSprinkler",
                 Phaser.Math.Between(0, this.game.config.width),
                 (this.cameras.main.scrollY - Phaser.Math.Between(500, this.game.config.height))));
-        } else if (asset === "cashoola") {
-            this.placeAsset(new Cashoola(this, Phaser.Math.Between(0, this.game.config.width),
-                (this.cameras.main.scrollY - Phaser.Math.Between(500, this.game.config.height)), "cashoola", 1));
         } else if (asset === "reverse") {
             this.placeAsset(new Reverse(this, Phaser.Math.Between(0, this.game.config.width),
                 (this.cameras.main.scrollY - Phaser.Math.Between(500, this.game.config.height)), "reverse"))
@@ -329,11 +292,6 @@ export default class Game extends Scene {
             rotatingSprinkler.scale = asset.getRotatingSprinklerRadius();
             rotatingSprinkler.play("rotatingSprinkler", false);
             rotatingSprinkler.body.updateFromGameObject();
-        } else if (asset instanceof Cashoola) {
-            const cashoola = this.cashoolas.create(asset.getSpriteXPosition(), asset.getSpriteYPosition(), asset.getSpriteTexture());
-            cashoola.scale = 0.03;
-            cashoola.play("cashoola", false);
-            cashoola.body.updateFromGameObject();
         } else if (asset instanceof Reverse) {
             const reverse = this.reverses.create(asset.getSpriteXPosition(), asset.getSpriteYPosition(), asset.getSpriteTexture());
             reverse.scale = 0.03;
@@ -351,52 +309,33 @@ export default class Game extends Scene {
         sprinkler.destroy();
     }
 
-    pickedUpCashoola(character, cashoola) {
-        character.addNewChashoolaToTheCharacter(cashoola);
-        cashoola.destroy();
-    }
-
     pickedUpReverse(character, reverse) {
         character.changeCharacterMovement();
+        character.collectAReverseToken();
         reverse.destroy();
     }
 
     assetSpawnedOnAnotherAsset(asset1, asset2) {
         asset1.destroy();
-        this.generateAsset(asset1.getSpriteTexture());
+        this.generateAsset(asset1.texture.key);
     }
 
-    // cashoolaSpawnedOnRotatingSprinkler(cashoola, rotatingSprinkler) {
-    //     cashoola.destroy();
-    //     this.generateAsset("cashoola");
-    // }
-    //
-    // stationarySprinklerSpawnedOnStationarySprinkler(stationarySprinkler1, stationarySprinkler2) {
-    //     stationarySprinkler1.destroy();
-    //     this.generateAsset("stationarySprinkler");
-    // }
-    //
-    // rotatingSprinklerSpawnedOnStationarySprinkler(rotatingSprinkler, stationarySprinkler) {
-    //     rotatingSprinkler.destroy();
-    //     this.generateAsset("rotatingSprinkler")
-    // }
-    //
-    // rotatingSprinklerSpawnedOnRotatingSprinkler(rotatingSprinkler1, rotatingSprinkler2) {
-    //     rotatingSprinkler1.destroy();
-    //     this.generateAsset("rotatingSprinkler");
-    // }
-
     timeSurvivedIncrementer() {
-        this.timeSurvived.setHighScoreValue(this.timeSurvived.getHighScoreValue() + 1);
-        if (this.timeSurvived.getHighScoreValue() > 20 && this.timeSurvived.getHighScoreValue() % 2 === 1 ) {
+        console.log(this.character.getCharacterHighScore("Time Survived"));
+        this.character.getCharacterHighScore("Time Survived").setHighScoreValue(
+            this.character.getCharacterHighScore("Time Survived").getHighScoreValue() + 1);
+        if (this.character.getCharacterHighScore("Time Survived").getHighScoreValue() > 20 &&
+            this.character.getCharacterHighScore("Time Survived").getHighScoreValue() % 2 === 1 ) {
             this.spawnRotatingSprinkler();
         }
 
-        if (this.timeSurvived.getHighScoreValue() > 40 && this.timeSurvived.getHighScoreValue() % 2 === 1) {
+        if (this.character.getCharacterHighScore("Time Survived").getHighScoreValue() > 40 &&
+            this.character.getCharacterHighScore("Time Survived").getHighScoreValue() % 2 === 1) {
             this.spawnStationarySprinkler();
         }
 
-        if (this.timeSurvived.getHighScoreValue() > 60 && this.timeSurvived.getHighScoreValue() % 2 === 1) {
+        if (this.character.getCharacterHighScore("Time Survived").getHighScoreValue() > 60 &&
+            this.character.getCharacterHighScore("Time Survived").getHighScoreValue() % 2 === 1) {
             this.spawnRotatingSprinkler();
         }
 

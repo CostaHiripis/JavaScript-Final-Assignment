@@ -5,9 +5,15 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sprinkler Run</title>
+    <script>
+        window.onbeforeunload = function() {
+            localStorage.clear();
+        };
+    </script>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.50.1/dist/phaser.js"></script>
 </head>
 <body>
     <script type="module" src="src/js/main.js"></script>
+
 </body>
 </html>

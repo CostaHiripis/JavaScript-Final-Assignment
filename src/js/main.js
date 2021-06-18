@@ -1,6 +1,8 @@
 import Phaser from "../lib/Phaser.js";
 import Game from "../scenes/Game.js";
 import Store from "../scenes/Store.js";
+import MainMenu from "../scenes/MainMenu.js";
+import GameOver from "../scenes/GameOver.js";
 
 export default new Phaser.Game({
     type: Phaser.AUTO,
@@ -10,7 +12,7 @@ export default new Phaser.Game({
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: Game,
+    scene: [MainMenu, Game, Store, GameOver],
     physics: {
         default: "arcade",
         // arcade: {

@@ -16,9 +16,9 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
         this.setVelocityY(this.characterSpeed);
         this.characterLives = 3;
         this.characterHighScores = [];
-        this.characterCashoolas = [];
         this.characterMovement = "Normal";
-
+        this.characterTexture = characterTexture;
+        this.reverseTokensCollected = 0;
     }
 
 
@@ -31,32 +31,25 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
         this.characterName = characterName;
     }
 
+    getCharacterTexture() {
+        return this.characterTexture;
+    }
 
-    addHighScoreToHighScores(highScoreName, highScoreValue) {
-        if (!this.isThisCharacterHighScoreAlreadyCreated(highScoreName)) {
-            let highScore = new HighScore(highScoreName, highScoreValue);
-            this.characterHighScores.push(highScore);
-        }
+    
+    getCharacterHighScores() {
+        return this.characterHighScores;
     }
     
-    getCharacterHighScore(highScoreName) {
-        if (this.isThisCharacterHighScoreAlreadyCreated(highScoreName)) {
-            this.characterHighScores.forEach((highScore, index) =>{
-                return highScore;
+    getCharacterHighScore(highScore) {
+        let highScoreResult;
+            this.characterHighScores.forEach((highScoreToCompare) => {
+                if (highScoreToCompare.getHighScoreName() === highScore) {
+                    highScoreResult = highScoreToCompare;
+                }
             })
-        }
-        return false;
-    }
-    
-    getCharacterHighScoreValue(highScoreName) {
-        if (this.getCharacterHighScore(highScoreName) !== false) {
-            this.getCharacterHighScore(highScoreName).getHighScoreValue();
-        }
+        return highScoreResult;
     }
 
-    getNumberOfChashoolaTheCharacterHas() {
-        return this.characterCashoolas.length;
-    }
 
     getCharacterMovement() {
         return this.characterMovement;
@@ -66,18 +59,8 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
         return this.characterSpeed;
     }
 
-    setANewHighScore(highScoreName, highScoreValue) {
-        if (this.isThisCharacterHighScoreAlreadyCreated(highScoreName)) {
-            this.characterHighScores.forEach((highScore, index) => {
-                if (highScore.getHighScoreName() === highScoreName) {
-                    highScore.setHighScoreValue(highScoreValue);
-                }
-            });
-        }
-    }
-
-    addNewChashoolaToTheCharacter(cashoola) {
-        this.characterCashoolas.push(cashoola);
+    addANewHighScore(highScore) {
+        this.characterHighScores.push(highScore);
     }
 
     changeCharacterMovement() {
@@ -99,20 +82,6 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
         this.setCharacterSpeed(temp.toString());
     }
 
-    removeChashoolaFromCharacter(numberOfCashoolasToRemove) {
-        this.characterCashoolas.splice(0, numberOfCashoolasToRemove);
-    }
-
-    isThisCharacterHighScoreAlreadyCreated(highScoreNameToCompare) {
-        this.characterHighScores.forEach((highScore, index) => {
-            if (highScore.getHighScoreName() === highScoreNameToCompare) {
-                return true;
-            }
-        });
-        return false;
-    }
-
-
     deductLife() {
         this.characterLives = this.characterLives - 1;
     }
@@ -121,6 +90,16 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
         return this.characterLives;
     }
 
+    getReverseTokensCollected() {
+        return this.reverseTokensCollected;
+    }
 
+    collectAReverseToken() {
+        this.reverseTokensCollected += 1;
+    }
+
+    setReverseTokensCollected(reverseTokensCollected) {
+        this.reverseTokensCollected = reverseTokensCollected;
+    }
 
 }

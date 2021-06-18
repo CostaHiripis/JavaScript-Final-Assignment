@@ -1,5 +1,5 @@
 import Phaser from "../lib/Phaser.js";
-import StationarySprinkler from "../sprites/sprinklers/StationarySprinkler.js";
+import CharacterSprite from "../sprites/Character.js";
 
 export default class Scene extends Phaser.Scene{
     constructor(Scene, backgroundFilePath) {
@@ -61,5 +61,19 @@ export default class Scene extends Phaser.Scene{
 
     preLoadImage(key, value) {
         this.load.image(key, value);
+    }
+
+    changeScene(key) {
+        this.scene.start(key);
+    }
+
+    getLocalCharacter() {
+        return localStorage.getItem("character");
+    }
+
+    setLocalCharacter(character) {
+        if (character instanceof CharacterSprite) {
+            localStorage.setItem("character", JSON.stringify(character));
+        }
     }
 }
