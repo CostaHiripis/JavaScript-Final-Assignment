@@ -1,5 +1,6 @@
 import Scene from "./Scene.js";
 import Phaser from "../../lib/phaser.js";
+import MainMenu from "./MainMenu.js";
 
 export default class GameOver extends Scene {
     constructor() {
@@ -44,8 +45,8 @@ export default class GameOver extends Scene {
                 scene.start("Game");
             } else if (gameObject.text === "Main menu") {
                 localStorage.clear();
-                location.reload();
                 scene.start("MainMenu");
+
             }
 
         });

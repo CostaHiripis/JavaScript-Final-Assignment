@@ -21,12 +21,15 @@ export default class Game extends Scene {
     }
 
     preload() {
-        console.log("./resources/assets/characters/" + localStorage.getItem("character").toString() + ".png")
 
-        this.load.spritesheet("character", "./resources/assets/characters/" + localStorage.getItem("character").toString() + ".png", {
-            frameWidth: 48,
-            frameHeight: 48
-        });
+        // this.textures.remove("character");
+
+        for (let i = 0; i < 8; i++) {
+            this.load.spritesheet("character" + i, "./resources/assets/characters/character- " + i + ".png", {
+                frameWidth: 48,
+                frameHeight: 48
+            });
+        }
 
         this.load.spritesheet("sprinkler", "./resources/assets/sprinkler.png", {
             frameWidth: 140,
@@ -47,10 +50,6 @@ export default class Game extends Scene {
 
     create(data) {
 
-        // this.load.spritesheet("character", "./resources/assets/characters/" + localStorage.getItem("character") + ".png", {
-        //     frameWidth: 48,
-        //     frameHeight: 48
-        // });
         //Rotating sprinkler animation
         this.anims.create({
             key: "rotatingSprinkler",
@@ -59,6 +58,31 @@ export default class Game extends Scene {
             repeat: -1
         });
 
+        for (let i = 0; i < 8; i++) {
+            //Character walk forward animation
+            this.anims.create({
+                key: "walk" + i,
+                frames: this.anims.generateFrameNumbers("character" + i, {frames: [9, 10, 11]}),
+                frameRate: 8,
+                repeat: -1
+            });
+
+            //Character walk left animation
+            this.anims.create({
+                key: "left" + i,
+                frames: this.anims.generateFrameNumbers("character" + i, {frames: [3, 4, 5]}),
+                frameRate: 8,
+                repeat: -1
+            });
+
+            //Character walk right animation
+            this.anims.create({
+                key: "right" + i,
+                frames: this.anims.generateFrameNumbers("character" + i, {frames: [6, 7, 8]}),
+                frameRate: 8,
+                repeat: -1
+            });
+        }
 
         //Stationary sprinkler animation
         this.anims.create({
@@ -76,32 +100,8 @@ export default class Game extends Scene {
             repeat: -1
         });
 
-        //Character walk forward animation
-        this.anims.create({
-            key: "walk",
-            frames: this.anims.generateFrameNumbers("character", {frames: [9, 10, 11]}),
-            frameRate: 8,
-            repeat: -1
-        });
-
-        //Character walk left animation
-        this.anims.create({
-            key: "left",
-            frames: this.anims.generateFrameNumbers("character", {frames: [3, 4, 5]}),
-            frameRate: 8,
-            repeat: -1
-        });
-
-        //Character walk right animation
-        this.anims.create({
-            key: "right",
-            frames: this.anims.generateFrameNumbers("character", {frames: [6, 7, 8]}),
-            frameRate: 8,
-            repeat: -1
-        });
-
         //Creating character
-        this.character = new CharacterSprite("jon", this, 240, 320, "char", "-20");
+        this.character = new CharacterSprite("jon", this, 240, 320, "character", "-20");
         this.character.texture.skipRender = false;
         //Setting character hitbox
         this.character.setSize(25, 40);
@@ -197,32 +197,25 @@ export default class Game extends Scene {
 
     update(time, delta) {
 
-
-        //Normal horizontal velocity
-        if (this.character.getCharacterMovement() === "Normal") {
-            if (this.cursors.left.isDown) {
-                this.character.setVelocityX(-300 + 2 * parseInt(this.character.getCharacterSpeed()));
-                this.character.play("left", true);
-            } else if (this.cursors.right.isDown) {
-                this.character.setVelocityX(300 + 2 * this.character.getCharacterSpeed().replace("-", ""));
-                this.character.play("right", true);
-            } else {
-                this.character.setVelocityX(0);
-                this.character.play("walk", true);
-            }
-            //Flipped horizontal velocity for reverse token
-        } else {
-            if (this.cursors.left.isDown) {
-                this.character.setVelocityX(300 + 5 * this.character.getCharacterSpeed().replace("-", ""));
-                this.character.play("left", true);
-            } else if (this.cursors.right.isDown) {
-                this.character.setVelocityX(-300 + 5 * parseInt(this.character.getCharacterSpeed()));
-                this.character.play("right", true);
-            } else {
-                this.character.setVelocityX(0);
-                this.character.play("walk", true);
-            }
+        if (localStorage.getItem("character") === "character-0") {
+            this.updateCharacterMovement(0);
+        } else if (localStorage.getItem("character") === "character-1"){
+            this.updateCharacterMovement(1);
+        } else if (localStorage.getItem("character") === "character-2"){
+            this.updateCharacterMovement(2);
+        } else if (localStorage.getItem("character") === "character-3"){
+            this.updateCharacterMovement(3);
+        } else if (localStorage.getItem("character") === "character-4"){
+            this.updateCharacterMovement(4);
+        } else if (localStorage.getItem("character") === "character-5"){
+            this.updateCharacterMovement(5);
+        } else if (localStorage.getItem("character") === "character-6"){
+            this.updateCharacterMovement(6);
+        } else if (localStorage.getItem("character") === "character-6"){
+            this.updateCharacterMovement(7);
         }
+
+
 
         //Making character able to phase through the walls
         super.horizontalWrap(this.character);
@@ -346,5 +339,35 @@ export default class Game extends Scene {
             this.spawnRotatingSprinkler();
         }
 
+    }
+
+    updateCharacterMovement(characterId) {
+     if (localStorage.getItem("character") === "character-" + characterId){
+            //Normal horizontal velocity
+            if (this.character.getCharacterMovement() === "Normal") {
+                if (this.cursors.left.isDown) {
+                    this.character.setVelocityX(-300 + 2 * parseInt(this.character.getCharacterSpeed()));
+                    this.character.play("left" + characterId, true);
+                } else if (this.cursors.right.isDown) {
+                    this.character.setVelocityX(300 + 2 * this.character.getCharacterSpeed().replace("-", ""));
+                    this.character.play("right" + characterId, true);
+                } else {
+                    this.character.setVelocityX(0);
+                    this.character.play("walk" + characterId, true);
+                }
+                //Flipped horizontal velocity for reverse token
+            } else {
+                if (this.cursors.left.isDown) {
+                    this.character.setVelocityX(300 + 5 * this.character.getCharacterSpeed().replace("-", ""));
+                    this.character.play("left" + characterId, true);
+                } else if (this.cursors.right.isDown) {
+                    this.character.setVelocityX(-300 + 5 * parseInt(this.character.getCharacterSpeed()));
+                    this.character.play("right" + characterId, true);
+                } else {
+                    this.character.setVelocityX(0);
+                    this.character.play("walk" + characterId, true);
+                }
+            }
+        }
     }
 }
