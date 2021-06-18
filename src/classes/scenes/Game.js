@@ -21,10 +21,13 @@ export default class Game extends Scene {
     }
 
     preload() {
-        this.load.spritesheet("character", "./resources/assets/characters/" + localStorage.getItem("character") + ".png", {
+        console.log("./resources/assets/characters/" + localStorage.getItem("character").toString() + ".png")
+
+        this.load.spritesheet("character", "./resources/assets/characters/" + localStorage.getItem("character").toString() + ".png", {
             frameWidth: 48,
             frameHeight: 48
         });
+
         this.load.spritesheet("sprinkler", "./resources/assets/sprinkler.png", {
             frameWidth: 140,
             frameHeight: 80
@@ -43,6 +46,11 @@ export default class Game extends Scene {
     }
 
     create(data) {
+
+        // this.load.spritesheet("character", "./resources/assets/characters/" + localStorage.getItem("character") + ".png", {
+        //     frameWidth: 48,
+        //     frameHeight: 48
+        // });
         //Rotating sprinkler animation
         this.anims.create({
             key: "rotatingSprinkler",
@@ -50,6 +58,7 @@ export default class Game extends Scene {
             frameRate: 1,
             repeat: -1
         });
+
 
         //Stationary sprinkler animation
         this.anims.create({
@@ -66,7 +75,6 @@ export default class Game extends Scene {
             frameRate: 10,
             repeat: -1
         });
-
 
         //Character walk forward animation
         this.anims.create({
@@ -93,14 +101,14 @@ export default class Game extends Scene {
         });
 
         //Creating character
-        this.character = new CharacterSprite("jon", this, 240, 320, "character", "-20");
+        this.character = new CharacterSprite("jon", this, 240, 320, "char", "-20");
+        this.character.texture.skipRender = false;
         //Setting character hitbox
         this.character.setSize(25, 40);
         //Setting character animation
         this.character.play("walk");
 
         this.character.addANewHighScore(new HighScore("Time Survived", 0));
-
         //Character follow camera for character
         this.cameras.main.startFollow(this.character);
         this.cameras.main.setDeadzone(this.scale.width * 1.5);
@@ -124,7 +132,6 @@ export default class Game extends Scene {
             callbackScope: this,
             loop: true
         });
-
 
         //Reverse spawner
         this.spawnReverseEvent = this.time.addEvent({
@@ -184,10 +191,12 @@ export default class Game extends Scene {
         this.healthImage.setPosition(65);
         this.healthImage.scale = 0.6;
         this.healthImage.setDepth(1);
+
         super.create();
     }
 
     update(time, delta) {
+
 
         //Normal horizontal velocity
         if (this.character.getCharacterMovement() === "Normal") {
@@ -227,9 +236,9 @@ export default class Game extends Scene {
             this.healthImage.setTexture("oneLife");
         } else {
             this.healthImage.setTexture("zeroLives");
-            this.character.destroy();
             localStorage.setItem("timeSurvived", this.character.getCharacterHighScore("Time Survived").getHighScoreValue());
             localStorage.setItem("reverseTokensCollected", this.character.getReverseTokensCollected());
+            this.scene.restart();
             this.scene.start("GameOver");
         }
 
@@ -320,7 +329,6 @@ export default class Game extends Scene {
     }
 
     timeSurvivedIncrementer() {
-        console.log(this.character.getCharacterHighScore("Time Survived"));
         this.character.getCharacterHighScore("Time Survived").setHighScoreValue(
             this.character.getCharacterHighScore("Time Survived").getHighScoreValue() + 1);
         if (this.character.getCharacterHighScore("Time Survived").getHighScoreValue() > 20 &&

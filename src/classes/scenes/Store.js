@@ -54,6 +54,7 @@ export default class Store extends Scene {
 
             if (gameObject instanceof CharacterSprite) {
                 localStorage.setItem("character", gameObject.getCharacterTexture());
+
                 scene.start("Game");
             }
         });

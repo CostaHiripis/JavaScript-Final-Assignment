@@ -4,7 +4,6 @@ import Game from "./Game.js";
 
 
 export default class MainMenu extends Scene {
-    character;
 
     constructor() {
         super("MainMenu", "./resources/assets/bg.png");
@@ -16,6 +15,8 @@ export default class MainMenu extends Scene {
     }
 
     create() {
+
+
         this.add.image(240, 320, "background");
 
         let mainMenuText = this.add.group();

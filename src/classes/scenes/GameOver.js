@@ -40,9 +40,11 @@ export default class GameOver extends Scene {
             if (gameObject.text === "Play again") {
                 localStorage.removeItem("timeSurvived");
                 localStorage.removeItem("reverseTokensCollected");
+
                 scene.start("Game");
             } else if (gameObject.text === "Main menu") {
                 localStorage.clear();
+                location.reload();
                 scene.start("MainMenu");
             }
 
