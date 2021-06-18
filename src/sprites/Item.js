@@ -1,5 +1,3 @@
-import Phaser from "../lib/phaser.js";
-
 export default class Item {
     constructor(itemName, itemFilePath) {
         this.itemName = itemName;

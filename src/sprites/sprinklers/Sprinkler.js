@@ -1,4 +1,3 @@
-import Phaser from "../../lib/phaser.js";
 import Sprite from "../Sprite.js";
 
 export default class Sprinkler extends Sprite {

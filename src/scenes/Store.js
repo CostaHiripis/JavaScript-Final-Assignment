@@ -1,9 +1,8 @@
 import Phaser from "../lib/Phaser.js";
 import Scene from "./Scene.js";
-import Item from "../sprites/Item.js";
 import CharacterSprite from "../sprites/Character.js";
 
-export default class Store extends Scene{
+export default class Store extends Scene {
     constructor() {
         super("Store", "./resources/assets/bg.png");
         this.items = [];
@@ -32,19 +31,18 @@ export default class Store extends Scene{
         }
 
 
+        let title = this.add.text(25, 80, "Select a character", {fontSize: 40, color: "white"});
 
-        let title = this.add.text(25, 80, "Select a character", { fontSize: 40, color: "white" });
+        this.addItemToTheStore("jon", 100, 250, "character-0", "rotatingCharacter0");
+        this.addItemToTheStore("Jen", 200, 250, "character-1", "rotatingCharacter1");
+        this.addItemToTheStore("Len", 300, 250, "character-2", "rotatingCharacter2");
+        this.addItemToTheStore("Gwen", 400, 250, "character-3", "rotatingCharacter3");
+        this.addItemToTheStore("Wan", 100, 400, "character-4", "rotatingCharacter4");
+        this.addItemToTheStore("Man", 200, 400, "character-5", "rotatingCharacter5");
+        this.addItemToTheStore("Gan", 300, 400, "character-6", "rotatingCharacter6");
+        this.addItemToTheStore("Wegan", 400, 400, "character-7", "rotatingCharacter7");
 
-        this.addItemToTheStore("jon", 100,250, "character-0", "rotatingCharacter0");
-        this.addItemToTheStore("Jen", 200,250, "character-1", "rotatingCharacter1");
-        this.addItemToTheStore("Len", 300,250, "character-2", "rotatingCharacter2");
-        this.addItemToTheStore("Gwen", 400,250, "character-3", "rotatingCharacter3");
-        this.addItemToTheStore("Wan", 100,400, "character-4", "rotatingCharacter4");
-        this.addItemToTheStore("Man", 200,400, "character-5", "rotatingCharacter5");
-        this.addItemToTheStore("Gan", 300,400, "character-6", "rotatingCharacter6");
-        this.addItemToTheStore("Wegan", 400,400, "character-7", "rotatingCharacter7");
-
-        let back = this.add.text(200, 500, "Back", { fontSize: 30, color: "white" });
+        let back = this.add.text(200, 500, "Back", {fontSize: 30, color: "white"});
         back.setInteractive(new Phaser.Geom.Rectangle(0, 0, back.width, back.height), Phaser.Geom.Rectangle.Contains);
 
         let scene = this.scene;

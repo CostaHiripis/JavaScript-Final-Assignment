@@ -1,8 +1,6 @@
 import Phaser from "../lib/phaser.js";
-import Sprite from "./Sprite.js";
-import HighScore from "../js/HighScore.js";
 
-export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
+export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite {
     constructor(characterName, characterScene, characterXPosition, characterYPosition, characterTexture, characterSpeed) {
         super(characterScene, characterXPosition, characterYPosition, characterTexture);
         characterScene.sys.updateList.add(this);
@@ -22,7 +20,6 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
     }
 
 
-
     getCharacterName() {
         return this.characterName;
     }
@@ -35,18 +32,18 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite{
         return this.characterTexture;
     }
 
-    
+
     getCharacterHighScores() {
         return this.characterHighScores;
     }
-    
+
     getCharacterHighScore(highScore) {
         let highScoreResult;
-            this.characterHighScores.forEach((highScoreToCompare) => {
-                if (highScoreToCompare.getHighScoreName() === highScore) {
-                    highScoreResult = highScoreToCompare;
-                }
-            })
+        this.characterHighScores.forEach((highScoreToCompare) => {
+            if (highScoreToCompare.getHighScoreName() === highScore) {
+                highScoreResult = highScoreToCompare;
+            }
+        })
         return highScoreResult;
     }
 

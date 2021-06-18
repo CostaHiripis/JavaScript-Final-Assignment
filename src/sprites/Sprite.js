@@ -1,6 +1,6 @@
 import Phaser from "../lib/Phaser.js";
 
-export default class Sprite extends Phaser.GameObjects.Sprite{
+export default class Sprite extends Phaser.GameObjects.Sprite {
     constructor(spriteScene, spriteXPosition, spriteYPosition, spriteTexture) {
         super(spriteScene, spriteXPosition, spriteYPosition, spriteTexture);
         this.spriteScene = spriteScene;

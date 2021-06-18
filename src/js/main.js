@@ -12,7 +12,7 @@ export default new Phaser.Game({
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [MainMenu, Game, Store, GameOver],
+    scene: [MainMenu, Store, Game, GameOver],
     physics: {
         default: "arcade",
         // arcade: {

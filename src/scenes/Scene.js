@@ -1,7 +1,7 @@
 import Phaser from "../lib/Phaser.js";
 import CharacterSprite from "../sprites/Character.js";
 
-export default class Scene extends Phaser.Scene{
+export default class Scene extends Phaser.Scene {
     constructor(Scene, backgroundFilePath) {
         super(Scene);
         this.assetFilePaths = new Map();
@@ -9,7 +9,9 @@ export default class Scene extends Phaser.Scene{
     }
 
     preLoad() {
-        this.assetFilePaths.forEach((value, key) => {this.preLoadImage(key, value);});
+        this.assetFilePaths.forEach((value, key) => {
+            this.preLoadImage(key, value);
+        });
     }
 
     create() {
@@ -27,7 +29,7 @@ export default class Scene extends Phaser.Scene{
         if (sprite.x < -halfWidth) {
             sprite.x = gameWidth + halfWidth;
         } else if (sprite.x > gameWidth + halfWidth) {
-            sprite.x = - halfWidth;
+            sprite.x = -halfWidth;
         }
     }
 
@@ -61,19 +63,5 @@ export default class Scene extends Phaser.Scene{
 
     preLoadImage(key, value) {
         this.load.image(key, value);
-    }
-
-    changeScene(key) {
-        this.scene.start(key);
-    }
-
-    getLocalCharacter() {
-        return localStorage.getItem("character");
-    }
-
-    setLocalCharacter(character) {
-        if (character instanceof CharacterSprite) {
-            localStorage.setItem("character", JSON.stringify(character));
-        }
     }
 }

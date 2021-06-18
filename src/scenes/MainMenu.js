@@ -3,7 +3,7 @@ import Scene from "./Scene.js";
 import Game from "./Game.js";
 
 
-export default class MainMenu extends Scene{
+export default class MainMenu extends Scene {
     character;
 
     constructor() {
@@ -18,13 +18,13 @@ export default class MainMenu extends Scene{
     create() {
         this.add.image(240, 320, "background");
 
-        let mainMenuText  = this.add.group();
+        let mainMenuText = this.add.group();
         mainMenuText.classType = Phaser.GameObjects.Text;
 
         //Creating text
-        let title = mainMenuText.create(50, 150, "Sprinkler Run", { fontSize: 50, color: "white" });
-        let play = mainMenuText.create(200, 320, "Play", { fontSize: 35, color: "white" });
-        let store = mainMenuText.create(45, 400, "Character Selection", { fontSize: 35, color: "white" });
+        let title = mainMenuText.create(50, 150, "Sprinkler Run", {fontSize: 50, color: "white"});
+        let play = mainMenuText.create(200, 320, "Play", {fontSize: 35, color: "white"});
+        let store = mainMenuText.create(45, 400, "Character Selection", {fontSize: 35, color: "white"});
 
         //Making titles intractable
         play.setInteractive(new Phaser.Geom.Rectangle(0, 0, play.width, play.height), Phaser.Geom.Rectangle.Contains);

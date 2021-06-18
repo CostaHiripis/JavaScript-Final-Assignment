@@ -5,7 +5,6 @@ import StationarySprinkler from "../sprites/sprinklers/StationarySprinkler.js";
 import HighScore from "../js/HighScore.js";
 import RotatingSprinkler from "../sprites/sprinklers/RotatingSprinkler.js";
 import Reverse from "../sprites/pickables/Reverse.js";
-import MainMenu from "./MainMenu.js";
 
 export default class Game extends Scene {
     spawnStationarySprinklerEvent;
@@ -43,7 +42,7 @@ export default class Game extends Scene {
         super.preLoad();
     }
 
-    create(data ) {
+    create(data) {
         //Rotating sprinkler animation
         this.anims.create({
             key: "rotatingSprinkler",
@@ -202,7 +201,7 @@ export default class Game extends Scene {
                 this.character.setVelocityX(0);
                 this.character.play("walk", true);
             }
-        //Flipped horizontal velocity for reverse token
+            //Flipped horizontal velocity for reverse token
         } else {
             if (this.cursors.left.isDown) {
                 this.character.setVelocityX(300 + 5 * this.character.getCharacterSpeed().replace("-", ""));
@@ -241,11 +240,11 @@ export default class Game extends Scene {
         this.rotatingSprinklers.rotate(1);
 
         this.rotatingSprinklers.children.entries.forEach(x => {
-            x.body.setSize(100,100);
+            x.body.setSize(100, 100);
         });
 
         this.stationarySprinklers.children.entries.forEach(x => {
-            x.body.setSize(150,70);
+            x.body.setSize(150, 70);
         });
         super.update(time, delta);
     }
@@ -325,7 +324,7 @@ export default class Game extends Scene {
         this.character.getCharacterHighScore("Time Survived").setHighScoreValue(
             this.character.getCharacterHighScore("Time Survived").getHighScoreValue() + 1);
         if (this.character.getCharacterHighScore("Time Survived").getHighScoreValue() > 20 &&
-            this.character.getCharacterHighScore("Time Survived").getHighScoreValue() % 2 === 1 ) {
+            this.character.getCharacterHighScore("Time Survived").getHighScoreValue() % 2 === 1) {
             this.spawnRotatingSprinkler();
         }
 
